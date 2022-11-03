@@ -1,3 +1,5 @@
+#aquí vamos a correr nuestra api
+
 from fastapi import FastAPI
 
 app = FastAPI() #instanciar la clase
