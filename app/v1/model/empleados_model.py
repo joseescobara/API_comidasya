@@ -4,7 +4,7 @@ import peewee
 from app.v1.utils.db import db 
 
 
-class User(peewee.Model):
+class Empleados(peewee.Model):
     nombre = peewee.CharField(unique=True, index=True)
     telefono = peewee.IntegerField()
     cargo = peewee.CharField(index=True)
