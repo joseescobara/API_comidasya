@@ -36,9 +36,9 @@ class PeeweeConnectionState(peewee._ConnectionState):
     def __getattr__(self, name):
         return self._state.get()[name]
     
-#aquí creo un json para ver la conexión a la base de datos de postgress  
+#aquí creo la conexión a la base de datos
     
-db = peewee.PostgresqlDatabase(
+db = peewee.PostgresqlDatabase( 
     "comidas_ya",
     user="postgres",
     password="3215743551",
