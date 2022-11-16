@@ -1,4 +1,4 @@
-#me va permitir interactuar con la base de datos
+# Me va permitir interactuar con la base de datos
 
 import peewee
 from contextvars import ContextVar #esta librería me va permitir trabajar con las variables de configuración
