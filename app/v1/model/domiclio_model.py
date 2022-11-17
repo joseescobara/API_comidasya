@@ -1,7 +1,13 @@
+from datetime import datetime
+
 from enum import unique
 import peewee
 
 from app.v1.utils.db import db 
+from .usuarios_model import User
+from .empleados_model import Empleados
+from .sucursales_model import Sucursales
+from .ventas_model import Ventas
 
 
 class Domicilio(peewee.Model):
@@ -12,13 +18,14 @@ class Domicilio(peewee.Model):
     Args:
         peewee.Model: clase que extendemos a nuestro modelo.
     """
-    producto = peewee.CharField(unique=True, index=True)
-    cantidad = peewee.IntegerField()
+
+    venta = peewee.ForeignKeyField(Ventas, backref="ventas")
     direccion = peewee.CharField(unique=True, index=True)
     tipo_pago = peewee.CharField()
-    usuario = peewee.ForeignKeyField()
-    domiciliario = peewee.ForeignKeyField()
-    tienda = peewee.ForeignKeyField()
+    is_done = peewee.BooleanField(default=False)
+    usuario = peewee.ForeignKeyField(User, backref="usuario")
+    domiciliario = peewee.ForeignKeyField(Empleados, backref="domiciliario" )
+    sucursales = peewee.ForeignKeyField(Sucursales, backref="sucursales" )
     
     
     class Meta:

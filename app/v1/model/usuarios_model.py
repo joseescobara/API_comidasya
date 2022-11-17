@@ -1,5 +1,4 @@
 
-from enum import unique
 import peewee
 
 from app.v1.utils.db import db 
