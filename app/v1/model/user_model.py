@@ -13,10 +13,10 @@ class User(peewee.Model):
         peewee.Model: clase que extendemos a nuestro modelo.
     """
     correo = peewee.CharField(unique=True, index=True)
-    nombre = peewee.CharField(unique=True, index=True)
+    nombre = peewee.CharField(index=True)
     contrasena = peewee.CharField()
     direccion = peewee.CharField()
-    telefono = peewee.IntegerField()
+    telefono = peewee.IntegerField(unique=True, index=True)
     
     class Meta:
         """ contendrá la conexión a la base de datos.

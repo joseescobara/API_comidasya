@@ -9,7 +9,7 @@ from app.v1.model.ventas_model import Ventas
 from app.v1.utils.db import db
 
 def create_tables():
-    """Crea las tablas para los modelos User y Orders
+    """Crea las tablas para los modelos User, Domicilio, Empleados, Menu, Sucursales, Ventas.
     """
     with db:
         db.create_tables([User, Domicilio, Empleados, Menu, Sucursales, Ventas])

@@ -3,7 +3,7 @@ from datetime import datetime
 from enum import unique
 import peewee
 
-from .usuarios_model import User
+from .user_model import User
 from .sucursales_model import Sucursales
 from .menu_model import Menu
 

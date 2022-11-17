@@ -4,7 +4,7 @@ from enum import unique
 import peewee
 
 from app.v1.utils.db import db 
-from .usuarios_model import User
+from .user_model import User
 from .empleados_model import Empleados
 from .sucursales_model import Sucursales
 from .ventas_model import Ventas
