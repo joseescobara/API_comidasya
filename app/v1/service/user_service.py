@@ -5,7 +5,7 @@ from passlib.context import CryptContext
 
 from app.v1.model.user_model import User as UserModel
 from app.v1.schema import user_schema
-
+from app.v1.service.auth_service import get_password_hash
 
 
 
@@ -23,7 +23,7 @@ def create_user(user: user_schema.UserRegister):
         (UserModel.correo == user.correo) | (UserModel.telefono == user.telefono)
         )
     if get_user:
-        msg = "El email ya está creado"
+        msg = "El correo ya está creado"
         if get_user.get().telefono == user.telefono:
             msg = "Telefono ya creado"
             
@@ -34,8 +34,9 @@ def create_user(user: user_schema.UserRegister):
     
     db_user = UserModel(
         correo = user.correo,
+        username = user.username,
         nombre = user.nombre,
-        contrasena = user.contrasena,
+        password = get_password_hash(user.password),
         direccion = user.direccion,
         telefono = user.telefono
         
@@ -45,8 +46,9 @@ def create_user(user: user_schema.UserRegister):
     return user_schema.User(
         id = db_user.id,
         correo=db_user.correo,
+        username=db_user.username,
         nombre = db_user.nombre,
-        contrasena = db_user.contrasena,
+        password = db_user.password,
         direccion= db_user.direccion,
         telefono= db_user.telefono
     )

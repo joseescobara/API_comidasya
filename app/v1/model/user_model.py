@@ -14,7 +14,8 @@ class User(peewee.Model):
     """
     correo = peewee.CharField(unique=True, index=True)
     nombre = peewee.CharField(index=True)
-    contrasena = peewee.CharField()
+    username = peewee.CharField(unique=True, index=True)
+    password = peewee.CharField()
     direccion = peewee.CharField()
     telefono = peewee.IntegerField(unique=True, index=True)
     

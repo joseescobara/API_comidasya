@@ -17,6 +17,7 @@ class Ventas(peewee.Model):
     Args:
         peewee (_type_): _description_
     """
+    title = peewee.CharField()
     producto = peewee.ForeignKeyField(Menu, backref="ordenador")
     cantidad = peewee.IntegerField()
     fecha = peewee.DateTimeField(default=datetime.now)

@@ -1,23 +1,19 @@
+from datetime import datetime
 from pydantic import BaseModel
 from pydantic import Field
-from pydantic import EmailStr
 
     
-class UserBase(BaseModel):
+class SucursalesBase(BaseModel):
     """Extiende la clase BaseModel.
 
     Args:
         BaseModel (_type_): Clase a extender
     """
-    correo: EmailStr = Field(
-        ...,
-        example = "mmmmm@hotmail.com"
-    )
-    nombre: str = Field(
+    nombre_sucursal: str = Field(
         ...,
         min_length=3,
         max_length=50,
-        example = "Nombre Completo"
+        example = "C.C aventura"
     )
     username: str = Field(
         ...,
@@ -29,12 +25,18 @@ class UserBase(BaseModel):
     )
     telefono: int = Field(
         ...,
-        example = '311897453'
+        example = '8360876'
     )
+    nombre_encargado: str = Field(
+        ...,
+        example = "nombres apellidos"
+    )
+    horario_atencios: datetime =  Field(default=datetime.now())
+    
 
 
 
-class User(UserBase):
+class Sucursales(SucursalesBase):
     """Este modelo lo emplearemos como respuesta cuando necesitemos retornar la información de un usuario
 
     Args:
@@ -46,7 +48,7 @@ class User(UserBase):
     )
 
 
-class UserRegister(UserBase):
+class SucursalesRegister(SucursalesBase):
     """
     La emplearemos como modelo cuando un usuario se quiera registrar.
 

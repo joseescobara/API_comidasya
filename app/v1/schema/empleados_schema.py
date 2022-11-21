@@ -3,16 +3,12 @@ from pydantic import Field
 from pydantic import EmailStr
 
     
-class UserBase(BaseModel):
+class EmpleadosBase(BaseModel):
     """Extiende la clase BaseModel.
 
     Args:
         BaseModel (_type_): Clase a extender
     """
-    correo: EmailStr = Field(
-        ...,
-        example = "mmmmm@hotmail.com"
-    )
     nombre: str = Field(
         ...,
         min_length=3,
@@ -23,6 +19,23 @@ class UserBase(BaseModel):
         ...,
         example = 'username11'
     )
+    telefono: int = Field(
+        ...,
+        example = '3118974532'
+    )
+    cargo: str = Field(
+        ...,
+        example = 'mesero'
+    )
+    correo: EmailStr = Field(
+        ...,
+        example = "mmmmm@hotmail.com"
+    )
+    numero_cuenta: float = Field(
+        ...,
+        example = '765438753'
+    )
+
     direccion: str = Field(
         ...,
         example = 'calle 62 # 35 -42'
@@ -31,10 +44,14 @@ class UserBase(BaseModel):
         ...,
         example = '311897453'
     )
+    sucursal: int = Field(
+        ...,
+        example='1'
+    )
 
 
 
-class User(UserBase):
+class Empleados(EmpleadosBase):
     """Este modelo lo emplearemos como respuesta cuando necesitemos retornar la información de un usuario
 
     Args:
@@ -46,9 +63,9 @@ class User(UserBase):
     )
 
 
-class UserRegister(UserBase):
+class EmpleadosRegister(EmpleadosBase):
     """
-    La emplearemos como modelo cuando un usuario se quiera registrar.
+    La emplearemos como modelo cuando  se quiera registrar un nuevo empleado.
 
     Args:
         UserBase (_type_): hereda UserBase

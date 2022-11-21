@@ -1,4 +1,4 @@
-
+from datetime import datetime
 import peewee
 
 from app.v1.utils.db import db 
@@ -13,9 +13,12 @@ class Sucursales(peewee.Model):
         peewee.Model: clase que extendemos a nuestro modelo.
     """
     nombre_sucursal = peewee.CharField(unique=True, index=True)
+    username = peewee.CharField(unique=True, index=True)
+    password = peewee.CharField()
     direccion = peewee.CharField(index=True)
-    nombre_encargado = peewee.CharField()
-    horario_atencion = peewee.TimeField()
+    telefono = peewee.IntegerField(unique=True, index=True)
+    nombre_encargado = peewee.CharField(unique=True)
+    horario_atencion = peewee.DateTimeField(default=datetime.now)
     
     class Meta:
         """ contendrá la conexión a la base de datos.

@@ -16,12 +16,12 @@ class Empleados(peewee.Model):
     """
 
     nombre = peewee.CharField(index=True)
+    username = peewee.CharField(unique=True, index=True)
     telefono = peewee.IntegerField()
     cargo = peewee.CharField(index=True)
-    turno = peewee.TimeField(index=True)
     correo = peewee.CharField(unique=True, index=True)
     numero_cuenta = peewee.IntegerField(unique=True, index=True)
-    contrasena = peewee.CharField(unique=True, index=True)
+    password = peewee.CharField(unique=True, index=True)
     direccion = peewee.CharField()
     sucursal = peewee.ForeignKeyField(Sucursales,  backref="empleados")
     
