@@ -38,23 +38,76 @@ def create_ventas(ventas: ventas_schema.Ventas = Body(...),
     dependencies= [Depends(get_db)]
 )
 def get_ventas(
-    state: Optional[bool] = Query(None)
+    is_done: Optional[bool] = Query(None),
+    current_user: User = Depends(get_current_user)
 ):
-    return ventas_service.get_ventas(state)
+    return ventas_service.get_ventas(current_user, is_done)
 
 @router.get(
-    "/{ventas_id}",
+    "/{venta_id}",
     tags=["ventas"],
     status_code=status.HTTP_200_OK,
     response_model=ventas_schema.Ventas,
     dependencies=[Depends(get_db)]
 )
-def get_or(
+def get_venta(
     ventas_id: int = Path(
         ...,
         gt=0
-    )
+    ),
+    current_user: User = Depends(get_current_user)
 ):
-    return ventas_service.get_ventas(ventas_id)
+    return ventas_service.get_venta(ventas_id)
 
 
+@router.patch(
+    "/{venta_id}/mark_done",
+    tags = ["venta"],
+    status_code=status.HTTP_200_OK,
+    response_model=ventas_schema.Ventas,
+    dependencies=[Depends(get_db)]
+)
+def mark_venta_done(
+    venta_id: int = Path(
+        ...,
+        gt=0
+    ),
+    current_user: User = Depends(get_current_user)
+):
+    return ventas_service.update_status_task(True, venta_id, current_user)
+
+
+@router.patch(
+    "/{venta_id}/unmark_done",
+    tags = ["venta"],
+    status_code=status.HTTP_200_OK,
+    response_model=ventas_schema.Ventas,
+    dependencies=[Depends(get_db)]
+)
+def unmark_venta_done(
+    venta_id: int = Path(
+        ...,
+        gt=0
+    ),
+    current_user: User = Depends(get_current_user)
+):
+    return ventas_service.update_status_task(False, venta_id, current_user)
+
+@router.delete(
+    "/{venta_id}/",
+    tags=["venta"],
+    status_code=status.HTTP_200_OK,
+    dependencies=[Depends(get_db)]
+)
+def delete_venta(
+    venta_id: int = Path(
+        ...,
+        gt=0
+    ),
+    current_user: User = Depends(get_current_user)
+):
+    ventas_service.delete_venta(venta_id, current_user)
+
+    return {
+        'msg': 'El pedido a sido cancelado satisfactoriamente'
+    }

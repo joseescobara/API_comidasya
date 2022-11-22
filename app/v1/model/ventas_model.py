@@ -20,6 +20,7 @@ class Ventas(peewee.Model):
     title = peewee.CharField()
     producto = peewee.ForeignKeyField(Menu, backref="ordenador")
     cantidad = peewee.IntegerField()
+    is_done= peewee.BooleanField(default=False)
     fecha = peewee.DateTimeField(default=datetime.now)
     usuario = peewee.ForeignKeyField(User, backref="ordenador")
     sucursales = peewee.ForeignKeyField(Sucursales, backref="sucursales" )

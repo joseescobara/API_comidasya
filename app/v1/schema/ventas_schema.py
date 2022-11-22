@@ -18,6 +18,7 @@ class VentasCreate(BaseModel):
 class Ventas(VentasCreate):
     producto: int = Field(...)
     cantidad: int = Field(...)
+    is_done: bool = Field(default=False)
     fecha: datetime = Field(default=datetime.now())
     usuario: int = Field(...)
     sucursales: int = Field(...)
