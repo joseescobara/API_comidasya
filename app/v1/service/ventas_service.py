@@ -128,3 +128,5 @@ def delete_task(task_id: int, user: user_schema.User):
         )
 
     venta.delete_instance()
+
+

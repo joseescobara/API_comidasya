@@ -1,4 +1,5 @@
-
+# Python
+from datetime import datetime
 # Pydantic
 from pydantic import BaseModel
 from pydantic import Field
@@ -17,7 +18,7 @@ class Menu(MenuCreate):
     id: int = Field(...)
     ingredientes: str = Field(...)
     tamaño: str = Field(...)
+    is_done: bool = Field(default=False)
     bebidas: str = Field(...)
     porciones: int = Field(...)
     precio: int = Field(...)
-    

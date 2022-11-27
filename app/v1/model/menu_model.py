@@ -1,9 +1,10 @@
 
 import peewee
 
-from .sucursales_model import Sucursales
+#from .sucursales_model import Sucursales
 from app.v1.utils.db import db 
 
+from .user_model import User
 
 class Menu(peewee.Model):
     """
@@ -13,13 +14,14 @@ class Menu(peewee.Model):
     Args:
         peewee.Model: clase que extendemos a nuestro modelo.
     """
-    tipos_pizza = peewee.CharField(index=True)
+    tipos_pizza = peewee.CharField()
     ingredientes = peewee.CharField()
     tamaño = peewee.CharField()
+    is_done = peewee.BooleanField(default=False)
     bebidas = peewee.CharField()
     porciones = peewee.IntegerField()
     precio = peewee.IntegerField()
-    sucursal = peewee.ForeignKeyField(Sucursales, backref="sucursales")
+    user = peewee.ForeignKeyField(User, backref="usuarios")
     
     class Meta:
         """ contendrá la conexión a la base de datos.

@@ -18,8 +18,9 @@ class Domicilio(peewee.Model):
     Args:
         peewee.Model: clase que extendemos a nuestro modelo.
     """
-
+    title = peewee.CharField()
     venta = peewee.ForeignKeyField(Ventas, backref="ventas")
+    fecha = peewee.DateTimeField(default=datetime.now)
     direccion = peewee.CharField(unique=True, index=True)
     tipo_pago = peewee.CharField()
     is_done = peewee.BooleanField(default=False)

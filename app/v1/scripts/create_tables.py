@@ -1,5 +1,5 @@
 from app.v1.model.user_model import User
-from app.v1.model.domiclio_model import Domicilio
+from app.v1.model.domicilios_model import Domicilio
 from app.v1.model.empleados_model import Empleados
 from app.v1.model.menu_model import Menu
 from app.v1.model.sucursales_model import Sucursales

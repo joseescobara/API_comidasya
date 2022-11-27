@@ -34,17 +34,18 @@ class UserBase(BaseModel):
 
 
 
+
 class User(UserBase):
-    """Este modelo lo emplearemos como respuesta cuando necesitemos retornar la información de un usuario
+    """ Valida los Id
 
     Args:
-        UserBase (_type_): extiende la clase UserBase
+        UserBase (_type_): Herencia de UserBase
     """
+
     id: int = Field(
         ...,
-        example="5"
+        example = '5'
     )
-
 
 class UserRegister(UserBase):
     """
