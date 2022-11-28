@@ -16,12 +16,10 @@ class DomiciliosCreate(BaseModel):
 
 
 class Domicilios(DomiciliosCreate):
-    venta: int = Field(...)
+    id: int = Field(...)
     fecha: datetime = Field(default=datetime.now)
     direccion: str = Field(unique=True, index=True)
     tipo_pago: str = Field()
     is_done: bool = Field(default=False)
-    usuario: int = Field(...)
-    domiciliario: int = Field(...)
-    sucursales: int = Field(...)
+    
     

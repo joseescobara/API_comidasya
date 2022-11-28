@@ -24,10 +24,12 @@ router = APIRouter(prefix="/api/v1/domicilios")
     dependencies=[Depends(get_db)]
 )
 
-def create_domicilios(domicilios: domicilios_schema.Domicilios = Body(...),
+def create_domicilios(domicilios: domicilios_schema.DomiciliosCreate = Body(...),
     current_user: User = Depends(get_current_user)
 ):
     return domicilios_service.create_domicilio(domicilios, current_user)
+
+
 
 @router.get(
     "/",
@@ -56,7 +58,8 @@ def get_domicilio(
     ),
     current_user: User = Depends(get_current_user)
 ):
-    return domicilios_service.get_domicilio(domicilio_id)
+    return domicilios_service.get_domicilio(domicilio_id,current_user)
+
 
 
 @router.patch(
@@ -90,7 +93,9 @@ def unmark_domicilios_done(
     ),
     current_user: User = Depends(get_current_user)
 ):
-    return domicilios_service.update_status_task(False, domicilios_id, current_user)
+    return domicilios_service.update_status_domicilios(False, domicilios_id, current_user)
+
+
 
 @router.delete(
     "/{domicilios_id}/",
