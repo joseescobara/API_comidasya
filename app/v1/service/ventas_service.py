@@ -12,6 +12,17 @@ def create_ventas(ventas: ventas_schema.VentasCreate,
     sucursales: sucursales_schema,
     menus: menus_schema
 ):
+    """Recibe por instancia la venta y lod implicados en la compra.
+
+    Args:
+        ventas (ventas_schema.VentasCreate): datos de la venta realizada
+        user (user_schema.User): usuario que realiza la compra
+        sucursales (sucursales_schema): sucursal donde se realiza la compra
+        menus (menus_schema): menu elegido en la compra.
+
+    Returns:
+        _type_: informacion de la venta.
+    """
 
     db_ventas = VentasModel(
         title=ventas.title,
@@ -35,7 +46,7 @@ def create_ventas(ventas: ventas_schema.VentasCreate,
 
 def get_ventas(user: user_schema.User, is_done: bool = None):
     
-    if is_done is None:
+    if (is_done is None):
         ventas_by_user = VentasModel.filter(VentasModel.user_id == user.id).order_by(VentasModel.create_at.desc())
     else:
         ventas_by_user = VentasModel.filter((VentasModel.user_id  == user.id) & (VentasModel.is_done == is_done)).order_by(VentasModel.create_at.desc())
@@ -57,9 +68,12 @@ def get_ventas(user: user_schema.User, is_done: bool = None):
     return list_ventas
 
 def get_venta(venta_id: int, user: user_schema.User):
-    venta = VentasModel.filter(
-        (VentasModel.id == venta_id) & (VentasModel.user_id == user.id)
-        ).get()
+    venta = VentasModel.filter((VentasModel.id == venta_id) & (VentasModel.user_id == user.id)).get()
+    if not venta:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Venta mo encontrada"
+        )
     
     return ventas_schema.Ventas(
         id = venta.id,
@@ -70,6 +84,7 @@ def get_venta(venta_id: int, user: user_schema.User):
         usuario=venta.usuario,
         sucursales=venta.sucursales
     )
+
 
 def update_status_task(is_done: bool, venta_id: int, user: user_schema.User):
     """" Actualiza el estado de las tareas
@@ -85,9 +100,7 @@ def update_status_task(is_done: bool, venta_id: int, user: user_schema.User):
     Returns:
         _type_:  valores actualizados
     """
-    venta = VentasModel.filter(
-        (VentasModel.id == venta_id) & ( VentasModel.user_id == user.id)
-    ).first()
+    venta = VentasModel.filter((VentasModel.id == venta_id) & ( VentasModel.user_id == user.id)).first()
     
     if not venta:
         raise HTTPException(

@@ -16,6 +16,7 @@ class VentasCreate(BaseModel):
 
 
 class Ventas(VentasCreate):
+    id: int = Field(...)
     producto: int = Field(...)
     cantidad: int = Field(...)
     is_done: bool = Field(default=False)

@@ -23,9 +23,8 @@ router = APIRouter(prefix="/api/v1/ventas")
     dependencies=[Depends(get_db)]
 )
 
-def create_ventas(ventas: ventas_schema.Ventas = Body(...),
-    current_user: User = Depends(get_current_user)
-):
+def create_ventas(ventas: ventas_schema.VentasCreate = Body(...),
+    current_user: User = Depends(get_current_user)):
     return ventas_service.create_ventas(ventas, current_user)
 
 @router.get(
@@ -48,6 +47,7 @@ def get_ventas(
     response_model=ventas_schema.Ventas,
     dependencies=[Depends(get_db)]
 )
+
 def get_venta(
     ventas_id: int = Path(
         ...,
@@ -55,7 +55,7 @@ def get_venta(
     ),
     current_user: User = Depends(get_current_user)
 ):
-    return ventas_service.get_venta(ventas_id)
+    return ventas_service.get_venta(ventas_id, current_user)
 
 
 @router.patch(
