@@ -7,10 +7,19 @@ from app.v1.model.menu_model import Menu as MenuModel
 
 
 def create_menus(menu: menus_schema.MenuCreate, user: user_schema.User):
+    """Recibe por instancia los menus y los interezados en el menu.
+
+    Args:
+        menu : datos del menu disponible
+        user (user_schema.User): usuario que realiza la compra
+        
+    Returns:
+        _type_: informacion de la menu.
+    """
     
     db_menu = MenuModel(
         tipo_pizza=menu.tipos_pizza,
-         user=user.id
+         user_id=user.id
     )
 
     db_menu.save()
@@ -27,6 +36,15 @@ def create_menus(menu: menus_schema.MenuCreate, user: user_schema.User):
     )
 
 def get_menus(user: user_schema.User, is_done: bool = None):
+    """Trae el menu disponible.
+
+    Args:
+        user (user_schema.User): usuario que pide el menu
+        is_done (bool, optional): estado del menu, en que false es que no a sido pedido.
+
+    Returns:
+        _type_: lista de menus solicitados
+    """
     
     if (is_done is None):
         menus_by_user = MenuModel.filter(MenuModel.user_id == user.id).order_by(MenuModel.create_at.desc())
@@ -51,6 +69,18 @@ def get_menus(user: user_schema.User, is_done: bool = None):
     return list_menus
 
 def get_menu(menu_id: int, user: user_schema.User):
+    """Trae un menu en especifico
+
+    Args:
+        venta_id (int): venta requerida
+        user (user_schema.User): usuario que la realizo
+
+    Raises:
+        HTTPException: error en caso de no estar registrado.
+
+    Returns:
+        _type_: venta en caso de ser encontrada, o un error en caso de que no la encuentre.
+    """
     menu = MenuModel.filter(
         (MenuModel.id == menu_id) & (MenuModel.user_id == user.id)
         ).get()

@@ -23,7 +23,7 @@ router = APIRouter(prefix='/api/v1')
     summary="Usuario creado"   
 )
 def create_user(user: user_schema.UserRegister = Body(...)):
-    """Ejecuta la función creada en service
+    """Ejecuta la función create en service
     Args:
         user (user_schema.UserRegister, optional): Usuario a crear
     Returns:

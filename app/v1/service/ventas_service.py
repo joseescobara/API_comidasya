@@ -9,8 +9,8 @@ from app.v1.model.ventas_model import Ventas as VentasModel
 
 def create_ventas(ventas: ventas_schema.VentasCreate,
     user: user_schema.User,
-    sucursales: sucursales_schema,
-    menus: menus_schema
+    sucursales: sucursales_schema.Sucursales,
+    menus: menus_schema.Menu
 ):
     """Recibe por instancia la venta y lod implicados en la compra.
 
@@ -28,7 +28,7 @@ def create_ventas(ventas: ventas_schema.VentasCreate,
         title=ventas.title,
         user_id=user.id,
         sucursales_id=sucursales.id,
-        menus_id=menus.id
+        menu_id=menus.id
     )
 
     db_ventas.save()
@@ -39,12 +39,20 @@ def create_ventas(ventas: ventas_schema.VentasCreate,
         producto = db_ventas.producto,
         cantidad = db_ventas.cantidad,
         is_done = db_ventas.is_done,
-        fecha = db_ventas.fecha,
-        sucursales = db_ventas.sucursales
+        fecha = db_ventas.fecha
 
     )
 
 def get_ventas(user: user_schema.User, is_done: bool = None):
+    """Trae un listado de ventas realizadas.
+
+    Args:
+        user (user_schema.User): usuario que realizo la compra
+        is_done (bool, optional): estado del menu, que confirma que la venta se a llevadoa cabo.
+
+    Returns:
+        _type_: lista de ventas solicitados
+    """
     
     if (is_done is None):
         ventas_by_user = VentasModel.filter(VentasModel.user_id == user.id).order_by(VentasModel.create_at.desc())
@@ -68,6 +76,18 @@ def get_ventas(user: user_schema.User, is_done: bool = None):
     return list_ventas
 
 def get_venta(venta_id: int, user: user_schema.User):
+    """Trae una venta en especifico
+
+    Args:
+        venta_id (int): venta requerida
+        user (user_schema.User): usuario que la realizo
+
+    Raises:
+        HTTPException: error en caso de no encontrar la venta
+
+    Returns:
+        _type_: venta en caso de ser encontrada, o un error en caso de que no la encuentre.
+    """
     venta = VentasModel.filter((VentasModel.id == venta_id) & (VentasModel.user_id == user.id)).get()
     if not venta:
         raise HTTPException(

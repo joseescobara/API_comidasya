@@ -7,6 +7,12 @@ from pydantic import Field
 
 
 class VentasCreate(BaseModel):
+    """
+    extiende la clase BaseModel, sera utilizado cuando se nos pida una venta o un alista de ventas.
+
+    Args:
+        BaseModel (_type_): clase de pydantic a extender.
+    """
     title: str = Field(
         ...,
         min_length=1,

@@ -9,6 +9,16 @@ from app.v1.model.domicilios_model import Domicilio as DomicilioModel
 
 
 def create_domicilio(domicilios: domicilios_schema.DomiciliosCreate, user: user_schema.User):
+    """
+    Esta función me permite crear el registro de una domicilios en la base de datos a través de el método post
+
+    Args:
+        domicilios: Datos de los domicilios solicitados
+        user (user_schema.User): usuario que realiza el pedido
+
+    Returns:
+        _type_: informacion del domicilio.
+    """
 
     db_domicilios = DomicilioModel(
         title=domicilios.title,
@@ -30,7 +40,15 @@ def create_domicilio(domicilios: domicilios_schema.DomiciliosCreate, user: user_
 
 
 def get_domicilios(user: user_schema.User, is_done: bool = None):
-    
+    """Trae los domicilios pendientes.
+
+    Args:
+        user (user_schema.User): usuario que pide el domicilio
+        is_done (bool, optional): estado del domicilio, en que false es que no a sido entregado.
+
+    Returns:
+        _type_: lista de domicilios solicitados
+    """
     if (is_done is None):
         domicilios_by_user = DomicilioModel.filter(DomicilioModel.user_id == user.id).order_by(DomicilioModel.create_at.desc())
     else:
@@ -53,6 +71,18 @@ def get_domicilios(user: user_schema.User, is_done: bool = None):
     return list_domicilios
 
 def get_domicilio(domicilio_id: int, user: user_schema.User):
+    """Trae un domicilio en especifico
+
+    Args:
+        domicilio_id (int): domicilios requeridos
+        user (user_schema.User): usuario que la realizo
+
+    Raises:
+        HTTPException: error en caso de no estar registrado.
+
+    Returns:
+        _type_: el domicilio en caso de ser encontrada, o un error en caso de que no la encuentre.
+    """
     domicilio = DomicilioModel.filter(
         (DomicilioModel.id == domicilio_id) & (DomicilioModel.user_id == user.id)
         ).get()
