@@ -2,13 +2,17 @@ from fastapi import HTTPException, status
 
 from app.v1.schema import domicilios_schema
 from app.v1.schema import user_schema
-#from app.v1.schema import sucursales_schema
+from app.v1.schema import sucursales_schema
+from app.v1.schema import empleados_schema
 from app.v1.schema import ventas_schema
-#from app.v1.schema import empleados_schema
 from app.v1.model.domicilios_model import Domicilio as DomicilioModel
 
 
-def create_domicilio(domicilios: domicilios_schema.DomiciliosCreate, user: user_schema.User):
+def create_domicilio(domicilios: domicilios_schema.DomiciliosCreate, 
+    user: user_schema.User,
+    sucursales: sucursales_schema.Sucursales,
+    empleados: empleados_schema.Empleados
+):
     """
     Esta función me permite crear el registro de una domicilios en la base de datos a través de el método post
 
@@ -22,7 +26,9 @@ def create_domicilio(domicilios: domicilios_schema.DomiciliosCreate, user: user_
 
     db_domicilios = DomicilioModel(
         title=domicilios.title,
-        user_id=user.id  
+        user_id=user.id,
+        sucursal_id=sucursales.id,
+        domiciliario_id=empleados.id
     )
 
     db_domicilios.save()
@@ -38,14 +44,11 @@ def create_domicilio(domicilios: domicilios_schema.DomiciliosCreate, user: user_
     )
 
 
-
 def get_domicilios(user: user_schema.User, is_done: bool = None):
     """Trae los domicilios pendientes.
-
     Args:
         user (user_schema.User): usuario que pide el domicilio
         is_done (bool, optional): estado del domicilio, en que false es que no a sido entregado.
-
     Returns:
         _type_: lista de domicilios solicitados
     """
@@ -72,14 +75,11 @@ def get_domicilios(user: user_schema.User, is_done: bool = None):
 
 def get_domicilio(domicilio_id: int, user: user_schema.User):
     """Trae un domicilio en especifico
-
     Args:
         domicilio_id (int): domicilios requeridos
         user (user_schema.User): usuario que la realizo
-
     Raises:
         HTTPException: error en caso de no estar registrado.
-
     Returns:
         _type_: el domicilio en caso de ser encontrada, o un error en caso de que no la encuentre.
     """
@@ -104,15 +104,12 @@ def get_domicilio(domicilio_id: int, user: user_schema.User):
 
 def update_status_domicilios(is_done: bool, domicilio_id: int, user: user_schema.User):
     """" Actualiza el estado de las tareas
-
     Args:
         is_done (bool): indicará el nuevo estado de la tarea
         venta_id (int): id de venta guardada
         user (user_schema.User): usuario comprador
-
     Raises:
         HTTPException: excepcion para comprobar si la tarea existe o no.
-
     Returns:
         _type_:  valores actualizados
     """
@@ -144,11 +141,9 @@ def update_status_domicilios(is_done: bool, domicilio_id: int, user: user_schema
 def delete_domicilio(domicilio_id: int, user: user_schema.User):
     """Elimina ventas en caso de que estas sean canceladas, reciviendo un id del pedido y del usuario que
     lo realizo y si estos coinciden los elimina
-
     Args:
         venta_id (int): id de la venta
         user (user_schema.User): usuario que realizo la compra
-
     Raises:
         HTTPException: _description_
     """

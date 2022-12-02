@@ -8,7 +8,6 @@ from app.v1.model.menu_model import Menu as MenuModel
 
 def create_menus(menu: menus_schema.MenuCreate, user: user_schema.User):
     """Recibe por instancia los menus y los interezados en el menu.
-
     Args:
         menu : datos del menu disponible
         user (user_schema.User): usuario que realiza la compra
@@ -37,11 +36,9 @@ def create_menus(menu: menus_schema.MenuCreate, user: user_schema.User):
 
 def get_menus(user: user_schema.User, is_done: bool = None):
     """Trae el menu disponible.
-
     Args:
         user (user_schema.User): usuario que pide el menu
         is_done (bool, optional): estado del menu, en que false es que no a sido pedido.
-
     Returns:
         _type_: lista de menus solicitados
     """
@@ -70,14 +67,11 @@ def get_menus(user: user_schema.User, is_done: bool = None):
 
 def get_menu(menu_id: int, user: user_schema.User):
     """Trae un menu en especifico
-
     Args:
         venta_id (int): venta requerida
         user (user_schema.User): usuario que la realizo
-
     Raises:
         HTTPException: error en caso de no estar registrado.
-
     Returns:
         _type_: venta en caso de ser encontrada, o un error en caso de que no la encuentre.
     """
@@ -100,15 +94,12 @@ def get_menu(menu_id: int, user: user_schema.User):
 
 def update_status_menu(is_done: bool, menu_id: int, user: user_schema.User):
     """" Actualiza el estado de las Menu
-
     Args:
         is_done (bool): indicará el nuevo estado de la tarea
         venta_id (int): id de venta guardada
         user (user_schema.User): usuario comprador
-
     Raises:
         HTTPException: excepcion para comprobar si la tarea existe o no.
-
     Returns:
         _type_:  valores actualizados
     """
@@ -138,11 +129,9 @@ def update_status_menu(is_done: bool, menu_id: int, user: user_schema.User):
 
 def delete_menu(menu_id: int, user: user_schema.User):
     """Elimina un menu en caso de que estos ya no esten disponibles .
-
     Args:
         venta_id (int): id de la venta
         user (user_schema.User): usuario que realizo la compra
-
     Raises:
         HTTPException: _description_
     """
@@ -155,4 +144,3 @@ def delete_menu(menu_id: int, user: user_schema.User):
         )
 
     menu.delete_instance()
-

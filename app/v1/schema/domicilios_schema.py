@@ -22,4 +22,3 @@ class Domicilios(DomiciliosCreate):
     tipo_pago: str = Field()
     is_done: bool = Field(default=False)
     
-    

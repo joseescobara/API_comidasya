@@ -80,6 +80,4 @@ async def get_current_user(token: str = Depends(oauth2_schema)):
     user = get_user(username=token_data.username)
     if user is None:
         raise credentials_exception
-    return 
-
-    
+    return user

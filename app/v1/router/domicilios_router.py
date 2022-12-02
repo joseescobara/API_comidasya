@@ -29,11 +29,9 @@ def create_domicilios(domicilios: domicilios_schema.DomiciliosCreate = Body(...)
 ):
     """
     Crea las rutas para poder crear una domicilio.
-
     Args:
         domicilios: variable de DomiciliosCreate la cual es obligatoria.
         current_user: es el resultado de la funcion get_current_user 
-
     Returns:
         _type_: si es valido devuelve el domicilio, si no lo es devuelve un error con su respectiva explicacion
     """
@@ -53,11 +51,9 @@ def get_domicilios(
     current_user: User = Depends(get_current_user)
 ):
     """Crea las rutas para poder traer los domicilos segun su estado de realizado o no.
-
     Args:
         is_done (Optional[bool], optional): Estado del domicilio.
         current_user (User, optional): usuario que lo realiza
-
     Returns:
         _type_: lista de domicilios.
     """
@@ -78,11 +74,9 @@ def get_domicilio(
     current_user: User = Depends(get_current_user)
 ):
     """Crea una ruta para acceder a un solo domicilio.
-
     Args:
         domicilio_id (int, optional): id que distingue el domicilio que es requerido.
         current_user (User, optional): Autenticacion del usuario
-
     Returns:
         _type_: domicilio solicitado en caso de estar , de lo contrario un error.
     """
@@ -105,11 +99,9 @@ def mark_domicilios_done(
     current_user: User = Depends(get_current_user)
 ):
     """Cambia el estado del domicilio, en caso de una cancelacion o ya estar entregado.
-
     Args:
         domicilio_id (int, optional): id del domicilioespecifico.
         current_user (User, optional): usuario que lo realizo.
-
     Returns:
         _type_: actualizacion del estado.
     """
@@ -131,11 +123,9 @@ def unmark_domicilios_done(
     current_user: User = Depends(get_current_user)
 ):
     """Cambia estado del pedido, en caso de que se le haga un amodificacion y se quiera que vuelva estar activo.
-
     Args:
         domicilios_id (int, optional): id del domicilio
         current_user (User, optional): usuario autenticado
-
     Returns:
         _type_: estado actualizado del pedido.
     """
@@ -157,11 +147,9 @@ def delete_domicilio(
     current_user: User = Depends(get_current_user)
 ):
     """Borra un pedido en caso de que se quiera cancelar definitivamente.
-
     Args:
         domicilio_id (int, optional): id del domicilio.
         current_user (User, optional): usuario autenticado.
-
     Returns:
         _type_: mensage con la confirmacion de la cancelacion del pedido.
     """

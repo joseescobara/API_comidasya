@@ -1,10 +1,10 @@
 
 import peewee
-
-#from .sucursales_model import Sucursales
+from .user_model import User
+from .sucursales_model import Sucursales
 from app.v1.utils.db import db 
 
-from .user_model import User
+
 
 class Menu(peewee.Model):
     """
@@ -21,6 +21,7 @@ class Menu(peewee.Model):
     bebidas = peewee.CharField()
     porciones = peewee.IntegerField()
     precio = peewee.IntegerField()
+    sucursales = peewee.ForeignKeyField(Sucursales, backref="sucursales")
     user = peewee.ForeignKeyField(User, backref="usuarios")
     
     class Meta:

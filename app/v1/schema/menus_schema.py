@@ -8,7 +8,6 @@ from pydantic import Field
 class MenuCreate(BaseModel):
     """
     extiende la clase BaseModel, sera utilizado cuando se nos pida una venta o un alista de ventas.
-
     Args:
         BaseModel (_type_): clase de pydantic a extender.
     """
